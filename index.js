@@ -5,6 +5,10 @@ const port = process.env.PORT || 3000;
 
 //request handlers
 
+app.get('/', function(req, res) {
+   res("Hi!");
+});
+
 //listener
 
 app.listen(port, function() {
