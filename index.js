@@ -5,12 +5,12 @@ const port = process.env.PORT || 3000;
 
 //request handlers
 
-app.get('/', function(req, res) {
+app.get('/test', function(req, res) {
    res("Hi!");
 });
 
 //listener
 
 app.listen(port, function() {
-    console.log(`Heroku app listening at http://localhost:${port}`);
+    console.log(`Heroku app listening at https://annikasheroku.herokuapp.com/`);
   });
