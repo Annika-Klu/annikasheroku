@@ -3,6 +3,9 @@ require('dotenv').config()
 const express = require('express')
 const mysql = require('mysql2')
 
+const bodyParser = require('body-parser');
+app.use(bodyParser.json());
+
 const app = express()
 const port = process.env.PORT
 
@@ -61,13 +64,15 @@ app.get('/api/employees/:id', function(req, res) {
 
 //HOMEWORK: on another endpoint, create post request that adds an entry to the database
 
-app.post('/api/employees/add/:id/:last/:first', function(req, res) {
+app.post('/api/employees/add/:id', function(req, res) {
 
    const id = req.params.id;
-   const last = req.params.last;
-   const first = req.params.first;
+   
+   const body = req.body;
+   console.log(body);
 
-   let insert = `INSERT INTO employees (employeeNumber, lastName, firstName) VALUES (${id}, ${last}, ${first})`;
+   let insert = `SELECT * from employees`;
+   // let insert = `INSERT INTO employees (employeeNumber, lastName, firstName) VALUES (${id}, ${last}, ${first})`;
    
    connection.query(insert, function(error, result) {
         
