@@ -64,15 +64,15 @@ app.get('/api/employees/:id', function(req, res) {
 
 //HOMEWORK: on another endpoint, create post request that adds an entry to the database
 
-app.post('/api/employees/add/:id', function(req, res) {
+app.post('/api/employees/new', function(req, res) {
 
-   const id = req.params.id;
-   
    const body = req.body;
    console.log(body);
+   const id = body.employeeNumber;
+   const last = body.lastName;
+   const first = body.firstName;
 
-   let insert = `SELECT * from employees`;
-   // let insert = `INSERT INTO employees (employeeNumber, lastName, firstName) VALUES (${id}, ${last}, ${first})`;
+   let insert = `INSERT INTO employees (employeeNumber, lastName, firstName) VALUES (${id}, ${last}, ${first})`;
    
    connection.query(insert, function(error, result) {
         
