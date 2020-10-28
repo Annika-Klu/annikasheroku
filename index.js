@@ -64,35 +64,35 @@ app.get('/api/employees/:id', function(req, res) {
 
 //HOMEWORK: on another endpoint, create post request that adds an entry to the database
 
-// app.post('/api/employees/new', function(req, res) {
+app.post('/api/employees/new', function(req, res) {
 
-//    const body = req.body;
-//    console.log(body);
-//    const id = body.employeeNumber;
-//    const last = body.lastName;
-//    const first = body.firstName;
+   const body = req.body;
+   console.log(body);
+   const id = body.employeeNumber;
+   const last = body.lastName;
+   const first = body.firstName;
 
-//    let insert = `INSERT INTO employees (employeeNumber, lastName, firstName) VALUES (${id}, ${last}, ${first})`;
+   let insert = `INSERT INTO employees (employeeNumber, lastName, firstName) VALUES (${id}, ${last}, ${first})`;
    
-//    connection.query(insert, function(error, result) {
+   connection.query(insert, function(error, result) {
         
-//       if (error) {
-//           res.json({
-//               status: 'error',
-//               description: `it's an error, try again later`
-//           })
-//       } else if (connection.query(`SELECT ${id} FROM employees`) != NULL) {
-//          res.json({
-//              status: 'invalid request',
-//              description: `the id you have indicated and/or the employee you wish to add to the database already exist`
-//          })
-//      } else
+      if (error) {
+          res.json({
+              status: 'error',
+              description: `it's an error, try again later`
+          })
+      } else if (connection.query(`SELECT ${id} FROM employees`) != NULL) {
+         res.json({
+             status: 'invalid request',
+             description: `the id you have indicated and/or the employee you wish to add to the database already exist`
+         })
+     } else
 
-//       res.json(result)
+      res.json(result)
   
-//   })       
+  })       
        
-// })
+})
 
 
 app.listen(port, function() {
