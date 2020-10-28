@@ -81,12 +81,18 @@ app.post('/api/employees/new', function(req, res) {
               status: 'error',
               description: `it's an error, try again later`
           })
-      } else if (connection.query(`SELECT ${id} FROM employees`) != NULL) {
-         res.json({
-             status: 'invalid request',
-             description: `the id you have indicated and/or the employee you wish to add to the database already exist`
-         })
-     } else
+      }  
+
+    // TO DO: I'd like to check if the selected employeeNo. is already taken, and if it is, I don't want the insertion to happen
+    //I assume another connection.query does not work the way I tried below since it requires another function (err, result)? 
+    //How could I handle this?
+
+    //  else if (connection.query(`SELECT lastName FROM employees WHERE employeeNumber = ${id}`) != NULL) {
+    //      res.json({
+    //          status: 'invalid request',
+    //          description: `the id you have indicated and/or the employee you wish to add to the database already exist`
+    //      })
+    //  } else
 
       res.json(result)
   
