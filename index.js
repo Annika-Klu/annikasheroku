@@ -15,7 +15,7 @@ const connection = mysql.createConnection({
 
 app.get('/', function(req, res) {
 
-    console.log(`A requeste was madde to the home endpoint!`)
+    console.log(`A request was made to the home endpoint!`)
 
     res.json({
         status: 'ok',
@@ -43,7 +43,7 @@ app.get('/api/employees', function(req, res) {
 
 app.get('/api/employees/:id', function(req, res) {
 
-    const id = req.params.id
+    const id = req.params.id;
 
     connection.query(`SELECT * FROM employees WHERE employeeNumber = ?`, [id], function(error, result) {
         
@@ -59,10 +59,40 @@ app.get('/api/employees/:id', function(req, res) {
     })
 })
 
+//HOMEWORK: on another endpoint, create post request that adds an entry to the database
+
+app.post('/api/employees/add/:id/:last/:first', function(req, res) {
+
+   const id = req.params.id;
+   const last = req.params.last;
+   const first = req.params.first;
+
+   let insert = `INSERT INTO employees (employeeNumber, lastName, firstName) VALUES (${id}, ${last}, ${first})`;
+   
+   connection.query(insert, function(error, result) {
+        
+      if (error) {
+          res.json({
+              status: 'error',
+              description: `it's an error, try again later`
+          })
+      } else if (connection.query(`SELECT ${id} FROM employees`) != NULL) {
+         res.json({
+             status: 'invalid request',
+             description: `the id you have indicated and/or the employee you wish to add to the database already exist`
+         })
+     } else
+
+      res.json(result)
+  
+  })       
+       
+})
+
+
 app.listen(port, function() {
     console.log(`running on port ${port}`)
 })
-
 
 //first setup when making project run hosted by heroku
 //----------------------------------------------------
