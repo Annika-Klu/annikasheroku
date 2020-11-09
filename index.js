@@ -29,6 +29,13 @@ app.get('/', function(req, res) {
 app.get('/dbtest', function(req, res) {
 
     connection.query(`SELECT * FROM offices`, function(error, result) {
+
+        if (error) {
+            res.json({
+                status: 'error',
+                description: `couldn't select all from offices`
+            })
+        }
     
         res.json(result)
     
@@ -38,6 +45,13 @@ app.get('/dbtest', function(req, res) {
 app.get('/api/employees', function(req, res) {
 
     connection.query(`SELECT * FROM employees`, function(error, result) {
+
+        if (error) {
+            res.json({
+                status: 'error',
+                description: `couldn't select all from employees`
+            })
+        }
     
         res.json(result)
     
@@ -53,7 +67,7 @@ app.get('/api/employees/:id', function(req, res) {
         if (error) {
             res.json({
                 status: 'error',
-                description: `it's an error, try again later`
+                description: `Could not select all from epmployees with given employeeNo.`
             })
         }
 
