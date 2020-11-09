@@ -71,10 +71,18 @@ app.post('/api/employees/new', function(req, res) {
    const id = body.employeeNumber;
    const last = body.lastName;
    const first = body.firstName;
+   const extension = body.extension;
+   const email = body.email;
+   const officeCode = body.officeCode;
+   const jobTitle = body.jobTitle;
 
-   let insert = `INSERT INTO employees (employeeNumber, lastName, firstName) VALUES (${id}, ${last}, ${first})`;
+   //as recommended by Helder, I changed the insert string to query parameters (?, ?, ?) so I won't have to worry about
+   //adding quotes to string data if I use template strings (e. g. "${first}", "${last}")
+
+   let insert = `INSERT INTO employees (employeeNumber, lastName, firstName, extension, email, officeCode, jobTitle)
+                VALUES (?, ?, ?, ?, ?, ?, ?)`;
    
-   connection.query(insert, function(error, result) {
+   connection.query(insert, [id, last, first, extension, email, officeCode, jobTitle], function(error, result) {
         
       if (error) {
           res.json({
@@ -82,6 +90,7 @@ app.post('/api/employees/new', function(req, res) {
               description: `it's an error, try again later`
           })
       }  
+      console.log(error);
 
     // TO DO: I'd like to check if the selected employeeNo. is already taken, and if it is, I don't want the insertion to happen
     //I assume another connection.query does not work the way I tried below since it requires another function (err, result)? 
